@@ -105,6 +105,7 @@ def part2() :
 
 			if "cm" in fieldDictionary["hgt"]:
 
+				# Some trouble for values under 100cm (2characters instead of 3)
 				if int(fieldDictionary["hgt"][:len(fieldDictionary["hgt"])-2]) < 150 or int(fieldDictionary["hgt"][:len(fieldDictionary["hgt"])-2]) > 193 :
 
 					valid = False
@@ -126,25 +127,24 @@ def part2() :
 			if fieldDictionary["ecl"] not in validEyeColours : 
 
 				valid = False
-				continue	 
+				continue
+
 			# Pattern : 
-
 			'''
-
 			^ : start of the line 
-
 			[a-z0-9] : what should be included
-
 			{7} how many characters long
 
 			'''
-
 			validHairColour = re.findall("^[#a-f0-9]{7}", fieldDictionary["hcl"])
 			
 			if not validHairColour : 
 
 				valid = False
 				continue	
+
+			# There was value with 10 numbers, regex matches it and passes only the 9
+			# digits so also do this :) 
 
 			if len(fieldDictionary["pid"]) != 9: 
 				valid = False
@@ -156,7 +156,6 @@ def part2() :
 
 				valid = False
 				continue	
-
 
 
 		if valid :
@@ -173,5 +172,5 @@ print("Part 1 : " , part1())
 print("Part 2 : " , part2())
 
 
-
-# This should be 226 and 160 but I am finding 163
+# Maybe more refactoring to have puzzle() and part1() part2()? 
+# Or put part1() inside part2(), but too much hassle.
